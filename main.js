@@ -65,6 +65,7 @@ function activeDot(slide = 0) {
 dotsContainer.addEventListener("click", function (e) {
   if (e.target.classList.contains("slide_dot")) {
     const { slide } = e.target.dataset;
+    slideCount = slide;
     setActiveSlide(slide);
   }
 });
