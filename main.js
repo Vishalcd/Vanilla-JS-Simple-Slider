@@ -5,7 +5,7 @@ const dotsContainer = document.querySelector(".slide_dots");
 
 let slideCount = 0;
 const maxSlides = allSlides.length - 1;
-let slideAfter = 5000;
+let slideAfter = 2000;
 
 function setSlides(count) {
   allSlides.forEach((slide, i) => {
@@ -47,7 +47,7 @@ setInterval(() => {
 // slider dots
 allSlides.forEach((_, i) => {
   const sliderDotHTML = `<span class="slide_dot ${
-    i === 0 && "slide_dot-active"
+    i === 0 ? "slide_dot-active" : ""
   }" data-slide="${i}"></span>`;
   dotsContainer.insertAdjacentHTML("beforeend", sliderDotHTML);
 });
@@ -58,15 +58,16 @@ function activeDot(slide = 0) {
     .querySelectorAll(".slide_dot")
     .forEach((dot) => dot.classList.remove("slide_dot-active"));
 
-  document.querySelector(`.slide_dot[data-slide="${slide}"]`).classList.add("slide_dot-active");
+  const currDot = document.querySelector(`.slide_dot[data-slide="${slide}`);
+  currDot.classList.add("slide_dot-active");
 }
 
 // dot slide
 dotsContainer.addEventListener("click", function (e) {
   if (e.target.classList.contains("slide_dot")) {
     const { slide } = e.target.dataset;
-    slideCount = slide;
     setActiveSlide(slide);
+    slideCount = +slide;
   }
 });
 
@@ -74,5 +75,5 @@ dotsContainer.addEventListener("click", function (e) {
 function setActiveSlide(slide) {
   setSlides(slide);
   activeDot(slide);
-  slideAfter = 5000;
+  slideAfter = 100;
 }
